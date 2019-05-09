@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class BloodRequestFragment extends Fragment {
@@ -75,6 +76,8 @@ public class BloodRequestFragment extends Fragment {
                     toAdd.setId_roll(value.getId_roll());
                     array.add(toAdd);
                 }
+
+                Collections.reverse(array);
                 Log.d("GettingDatas",Integer.toString(array.size()));
 
                 BloodRecyclerAdapter recyclerAdapter=new BloodRecyclerAdapter(array,getContext());

@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -83,6 +84,8 @@ public class ThankFragment extends Fragment {
                     toAdd.setThought(value.getThought());
                     array.add(toAdd);
                 }
+
+                Collections.reverse(array);
                 Log.d("GettingDatas",Integer.toString(array.size()));
 
                 ThankRecyclerAdapter recyclerAdapter=new ThankRecyclerAdapter(array,getContext());

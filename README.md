@@ -14,4 +14,4 @@ Remember to login with the above Gmail ID's only. After logout all dats in the a
 ## Extra Feature
 The newly added datas comes at the top of the list. The datas gets stored in the app automatically. It refreshes itself as the data in the server changes.
 
-Download the app by clicking [here]([https://github.com/NSS-IITPatna/NSS-Datas/ApkFile/NSSDatas.apk])
+Download the app by clicking [here](https://github.com/NSS-IITPatna/NSS-Datas/blob/master/ApkFIle/NSSDatas.apk)

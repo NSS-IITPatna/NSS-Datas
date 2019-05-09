@@ -1,6 +1,8 @@
 package com.example.nssdatas;
 
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
                 if (user!=null){
+                    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                     ThankFragment thankFragment=new ThankFragment();
                     getSupportFragmentManager().beginTransaction()
                             .add(R.id.parent_container,thankFragment).commit();
@@ -102,6 +106,10 @@ public class MainActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case R.id.sign_out:
                 AuthUI.getInstance().signOut(this);
+                if (Build.VERSION_CODES.KITKAT <= Build.VERSION.SDK_INT) {
+                    ((ActivityManager) this.getSystemService(ACTIVITY_SERVICE))
+                            .clearApplicationUserData();
+                }
                 return true;
             default:
                 return super.onContextItemSelected(item);

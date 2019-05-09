@@ -48,6 +48,7 @@ public class ThankFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView=inflater.inflate(R.layout.fragment_thank,container,false);
         recycle = (RecyclerView) rootView.findViewById(R.id.thank_recycle_view);
+
         return rootView;
     }
 

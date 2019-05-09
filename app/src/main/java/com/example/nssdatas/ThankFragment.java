@@ -66,7 +66,7 @@ public class ThankFragment extends Fragment {
 
     private void loadDatas() {
         FirebaseDatabase database=FirebaseDatabase.getInstance();
-        DatabaseReference thankRef = database.getReference("ThinkIdea");
+        DatabaseReference thankRef = database.getReference("ThankFeedback");
 
         thankRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,8 +89,6 @@ public class ThankFragment extends Fragment {
                 recycle.setLayoutManager(recyce);
                 recycle.setItemAnimator( new DefaultItemAnimator());
                 recycle.setAdapter(recyclerAdapter);
-
-
             }
 
             @Override

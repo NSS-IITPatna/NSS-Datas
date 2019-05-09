@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -83,6 +84,7 @@ public class ThinkFragment extends Fragment {
                     toAdd.setThought(value.getThought());
                     array.add(toAdd);
                 }
+                Collections.reverse(array);
                 Log.d("GettingDatas",Integer.toString(array.size()));
 
                 ThinkRecyclerAdapter recyclerAdapter=new ThinkRecyclerAdapter(array,getContext());

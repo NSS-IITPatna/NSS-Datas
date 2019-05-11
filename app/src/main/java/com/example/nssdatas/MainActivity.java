@@ -1,23 +1,33 @@
 package com.example.nssdatas;
 
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nssdatas.Models.TaskModel;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
@@ -25,6 +35,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int RC_SIGN_IN = 1;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    DatabaseReference rootRef, demoRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +122,64 @@ public class MainActivity extends AppCompatActivity{
                             .clearApplicationUserData();
                 }
                 return true;
+
+            case R.id.add_task:
+                addTaskDialog();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void addTaskDialog() {
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.add_task, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTask);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                             //   result.setText(userInput.getText());
+                                addTaskToFirebase(userInput.getText().toString());
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+    private void addTaskToFirebase(String taskToBeAdded) {
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        demoRef = rootRef.child("TasksAdded");
+
+        TaskModel newTask=new TaskModel();
+        newTask.setTasks(taskToBeAdded);
+        newTask.setAdder(mFirebaseAuth.getCurrentUser().getEmail());
+        String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        newTask.setDate(currentDateandTime);
+        demoRef.push().setValue(newTask);
+        Toast.makeText(this,"Succesfully added the tasks!",Toast.LENGTH_SHORT).show();
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -131,10 +197,19 @@ public class MainActivity extends AppCompatActivity{
                 case R.id.navigation_blood:
                     doBlood();
                     return true;
+                case R.id.navigation_task:
+                    doTask();
+                    return true;
             }
             return false;
         }
     };
+
+    private void doTask() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.parent_container, new TaskFragment());
+        ft.commit();
+    }
 
     private void doThank() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

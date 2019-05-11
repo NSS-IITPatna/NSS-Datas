@@ -16,4 +16,9 @@
         android:icon="@mipmap/ic_launcher_round"
         android:title="@string/title_notifications" />
 
+    <item
+        android:id="@+id/navigation_task"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="Tasks" />
+
 </menu>

@@ -39,7 +39,7 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         TaskModel feedbackList=taskList.get(position);
         myHoder.date.setText(feedbackList.getDate());
         myHoder.task.setText(feedbackList.getTasks());
-        myHoder.adder.setText("Task Added by "+feedbackList.getAdder());
+        myHoder.adder.setText("Added by "+feedbackList.getAdder());
     }
 
     @Override

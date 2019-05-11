@@ -131,10 +131,19 @@ public class MainActivity extends AppCompatActivity{
                 case R.id.navigation_blood:
                     doBlood();
                     return true;
+                case R.id.navigation_task:
+                    doTask();
+                    return true;
             }
             return false;
         }
     };
+
+    private void doTask() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.parent_container, new TaskFragment());
+        ft.commit();
+    }
 
     private void doThank() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

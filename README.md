@@ -8,6 +8,8 @@
 - dixitshivani2222@gmail.com
 - kumarjagdish3660@gmail.com
 
+**The members of NSS core team has also been given access to see the datas.**
+
 To have access to the datas via the app contact Amartya Mondal at 8967570983.
 # Note
 Remember to login with the above Gmail ID's only. After logout all dats in the app gets deleted and the app closes. You need to login again to access the datas. Once logged in, you donot need to login, until you logout
